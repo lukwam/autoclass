@@ -1,3 +1,12 @@
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+  });
+
 function age_objects(data, percent) {
     var new_data = {0: 0, 366: 0};
     for (const [key, value] of Object.entries(data)) {
@@ -79,8 +88,8 @@ function estimate() {
         // get number of objects
         let num = num_objects(data);
         let cost = get_cost(data, object_size);
-        console.log("Month " + month + " cost: $" + cost + " (" + num + " objects)");
-        output += "Month " + month + " cost: $" + cost + " (" + num + " objects)<br>\n";
+        console.log("Month " + month + " cost: $" + Number(cost.toFixed(2)).toLocaleString() + " (" + num + " objects)");
+        output += "Month " + month + " cost: $" + Number(cost.toFixed(2)).toLocaleString() + " (" + num + " objects)<br>\n";
     }
 
     var div = document.getElementById("output");
