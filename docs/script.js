@@ -79,8 +79,11 @@ function estimate() {
         // get number of objects
         let num = num_objects(data);
         let cost = get_cost(data, object_size);
-        console.log("Month " + month + " cost: $" + cost + " (" + num + " objects)");
-        output += "Month " + month + " cost: $" + cost + " (" + num + " objects)<br>\n";
+        let cost_string = Number(cost.toFixed(2)).toLocaleString();
+        let bucket_size = (num * object_size).toFixed(2);
+        let month_output = "Month " + month + " cost: $" + cost_string + " (" + num + " objects, " + bucket_size + " GB)";
+        console.log(month_output);
+        output += month_output + "<br>\n";
     }
 
     var div = document.getElementById("output");
