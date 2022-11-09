@@ -42,6 +42,16 @@ function get_cost(data, object_size) {
     return cost;
 }
 
+function get_row(month, cost_string, num, bucket_size) {
+    let output = "<tr>\n";
+    output += "<td class=\"text-start col-sm\">" + month + "</td>\n";
+    output += "<td class=\"text-end col-sm\"><code>$" + cost_string + "</code></td>\n";
+    output += "<td class=\"text-end col-sm\">" + num + "</td>\n";
+    output += "<td class=\"text-end col-sm\">" + bucket_size + "GB</td>\n";
+    output += "</tr>\n";
+    return output
+}
+
 function num_objects(data) {
     var num = 0;
     for (const value of Object.values(data)) {
@@ -68,7 +78,13 @@ function estimate() {
     // console.log(data);
 
     var month = 0;
-    var output = "";
+    var output = "<table class=\"table\">\n";
+    output += "<tr>";
+    output += "<th class=\"text-middle\">Month</th>";
+    output += "<th class=\"text-end\">Cost</th>";
+    output += "<th class=\"text-end\"># Objects</th>";
+    output += "<th class=\"text-end\">Size (GB)</th>";
+    output += "</tr>\n";
     while (month < 24) {
         month += 1;
         // age all the objects 30 days
@@ -79,12 +95,11 @@ function estimate() {
         // get number of objects
         let num = num_objects(data);
         let cost = get_cost(data, object_size);
-        let cost_string = Number(cost.toFixed(2)).toLocaleString();
+        let cost_string = cost.toFixed(2);
         let bucket_size = (num * object_size).toFixed(2);
-        let month_output = "Month " + month + " cost: $" + cost_string + " (" + num + " objects, " + bucket_size + " GB)";
-        console.log(month_output);
-        output += month_output + "<br>\n";
+        output += get_row(month, cost_string, num, bucket_size);
     }
+    output += "</table>";
 
     var div = document.getElementById("output");
     div.innerHTML = output;
