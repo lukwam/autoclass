@@ -78,7 +78,7 @@ function estimate() {
     // console.log(data);
 
     var month = 0;
-    var output = "<table class=\"table\">\n";
+    var output = "<table class=\"table table-sm\">\n";
     output += "<tr>";
     output += "<th class=\"text-middle\">Month</th>";
     output += "<th class=\"text-end\">Cost</th>";
