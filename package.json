@@ -1,0 +1,8 @@
+{
+  "name": "autoclass-calculator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}

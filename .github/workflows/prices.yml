@@ -1,0 +1,49 @@
+name: Update prices
+
+on:
+  schedule:
+    - cron: "17 9 * * 1"  # Mondays 09:17 UTC
+  workflow_dispatch:
+
+permissions:
+  actions: write  # keepalive
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      # Public list prices from the Cloud Billing Catalog API. The key only needs
+      # access to cloudbilling.googleapis.com.
+      - run: python scripts/update_prices.py
+        env:
+          BILLING_API_KEY: ${{ secrets.BILLING_API_KEY }}
+
+      # A PR opened with GITHUB_TOKEN doesn't trigger CI, so test the new prices here.
+      - run: node --test
+
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/prices
+          commit-message: Update Cloud Storage prices
+          title: Update Cloud Storage prices
+          body: |
+            Google Cloud list prices changed. This updates `docs/prices.json` from the
+            [Cloud Billing Catalog API](https://cloud.google.com/billing/docs/reference/rest/v1/services.skus/list).
+
+            Review the diff, then merge to publish.
+          labels: prices
+          delete-branch: true
+
+      # GitHub disables scheduled workflows after 60 days without repository
+      # activity. This re-enables this one through the API, without commits.
+      - uses: liskin/gh-workflow-keepalive@v1
