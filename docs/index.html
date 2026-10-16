@@ -3,50 +3,122 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Autoclass Calcualtor for Google Cloud Storage</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <title>Autoclass Calculator</title>
+    <meta name="description" content="Estimate what Google Cloud Storage Autoclass would cost compared to keeping a bucket in Standard storage.">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+    <script type="module" src="app.js"></script>
   </head>
   <body>
-    <div id="calculator" class="container">
+    <main>
+      <header>
+        <h1>Autoclass Calculator</h1>
+        <p class="lede">
+          Estimate what <a href="https://cloud.google.com/storage/docs/autoclass">Autoclass</a> would cost for a
+          Cloud Storage bucket, compared to keeping everything in Standard storage.
+        </p>
+      </header>
 
-      <h1 class="mt-3">Autoclass Calculator</h1>
+      <form id="inputs" autocomplete="off">
+        <label>
+          <span>Location</span>
+          <select name="location"></select>
+        </label>
 
-      <p>
-        This calculator compares the cost of a Standard storage bucket with the cost of the same
-        bucket with Autoclass enabled.
-      </p>
+        <label>
+          <span>Objects in the bucket</span>
+          <input name="objects" type="number" min="0" step="1" value="10000000" inputmode="numeric">
+        </label>
 
-      <div class="mb-3">
-        <label for="objects" class="form-label">Number of Objects in Bucket</label>
-        <input type="text" class="form-control" id="objects" value="10000000">
-      </div>
+        <label>
+          <span>New objects per month</span>
+          <input name="newObjects" type="number" min="0" step="1" value="100000" inputmode="numeric">
+        </label>
 
-      <div class="mb-3">
-        <label for="new-objects" class="form-label">Number of New Objects Created per Month</label>
-        <input type="text" class="form-control" id="new-objects" value="100000">
-      </div>
+        <label>
+          <span>Average object size</span>
+          <span class="combo">
+            <input name="size" type="number" min="0" step="any" value="10" inputmode="decimal">
+            <select name="sizeUnit" aria-label="Size unit">
+              <option value="KiB">KiB</option>
+              <option value="MiB" selected>MiB</option>
+              <option value="GiB">GiB</option>
+            </select>
+          </span>
+        </label>
 
-      <div class="mb-3">
-        <label for="object-size" class="form-label">Average Object Size in Gigabytes</label>
-        <input type="text" class="form-control" id="object-size" value="0.010">
-      </div>
+        <label>
+          <span>Objects read per month <output name="accessedOut"></output></span>
+          <input name="accessedPercent" type="range" min="0" max="100" step="1" value="10">
+        </label>
 
-      <div class="mb-3">
-        <label for="percent-accessed" class="form-label">Percentage of Objects Accessed per Month</label>
-        <input type="text" class="form-control" id="percent-accessed" value="10">
-      </div>
+        <label>
+          <span>Objects under 128 KiB <output name="smallOut"></output></span>
+          <input name="smallPercent" type="range" min="0" max="100" step="1" value="0">
+        </label>
 
-      <button type="button" class="btn btn-primary" id="estimate" onclick="estimate();">Estimate</button>
+        <fieldset>
+          <legend>Terminal storage class</legend>
+          <label class="choice"><input type="radio" name="terminal" value="nearline" checked> Nearline <small>(default)</small></label>
+          <label class="choice"><input type="radio" name="terminal" value="archive"> Archive <small>(via Coldline)</small></label>
+        </fieldset>
 
-      <hr>
+        <fieldset>
+          <legend>Options</legend>
+          <label class="choice"><input type="checkbox" name="existingBucket" checked> Enabling on an existing bucket</label>
+          <label class="choice">
+            Show
+            <select name="months">
+              <option value="12">12 months</option>
+              <option value="24" selected>24 months</option>
+              <option value="36">36 months</option>
+            </select>
+          </label>
+        </fieldset>
+      </form>
 
-      <div id="output"></div>
+      <section class="summary" aria-live="polite">
+        <div class="card"><span class="label">Standard only</span><span class="value" id="total-standard">–</span></div>
+        <div class="card"><span class="label">With Autoclass</span><span class="value" id="total-autoclass">–</span></div>
+        <div class="card highlight"><span class="label">You save</span><span class="value" id="total-savings">–</span></div>
+      </section>
+      <p class="period" id="period"></p>
 
-    </div>
+      <section class="chart">
+        <canvas id="chart" aria-label="Monthly cost, Standard only versus Autoclass" role="img"></canvas>
+      </section>
 
+      <details>
+        <summary>Month by month</summary>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Month</th><th>Objects</th><th>Standard</th><th>Nearline</th><th>Coldline</th><th>Archive</th>
+                <th>Standard only</th><th>Autoclass</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </details>
 
+      <section class="notes">
+        <h2>How this works</h2>
+        <ul>
+          <li>Each month, the share of objects you read moves back to Standard. Everything else gets 30 days older. Autoclass moves objects to Nearline after 30 days without access. With an Archive terminal class, they move on to Coldline at 90 days and Archive at 365.</li>
+          <li>Autoclass adds a management fee of <span id="fee"></span> per 1,000 objects per month. Objects under 128 KiB are never moved and aren't counted.</li>
+          <li>Enabling Autoclass on an existing bucket costs one Class A operation per object. Reading an object back from Coldline or Archive costs one Class A operation. Retrieval and early-deletion fees don't apply with Autoclass.</li>
+          <li>Network transfer and your own read and write operations are left out, since they cost the same either way.</li>
+          <li>Prices are Google Cloud list prices in USD, last changed <span id="prices-updated"></span>, and are checked weekly. Your actual bill may differ.</li>
+        </ul>
+      </section>
 
-    <script src="./script.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+      <footer>
+        Made by <a href="https://github.com/lukwam">Lukas Karlsson</a> ·
+        <a href="https://github.com/lukwam/autoclass">Source</a> ·
+        Not affiliated with Google.
+      </footer>
+    </main>
   </body>
 </html>

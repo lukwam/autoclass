@@ -1,0 +1,6 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+  "files": { "includes": ["docs/**", "tests/**", "!docs/prices.json"] },
+  "formatter": { "indentStyle": "space", "indentWidth": 2, "lineWidth": 120 },
+  "linter": { "enabled": true, "rules": { "preset": "recommended" } }
+}

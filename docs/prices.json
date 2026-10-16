@@ -1,0 +1,411 @@
+{
+  "updated": "2026-10-16",
+  "currency": "USD",
+  "management_fee_per_1000_objects": 0.0025,
+  "class_a_per_operation": {
+    "multi-region": 1e-05,
+    "region": 5e-06
+  },
+  "locations": {
+    "asia": {
+      "name": "Asia",
+      "type": "multi-region",
+      "standard": 0.026,
+      "nearline": 0.015,
+      "coldline": 0.00875,
+      "archive": 0.003
+    },
+    "eu": {
+      "name": "EU",
+      "type": "multi-region",
+      "standard": 0.026,
+      "nearline": 0.015,
+      "coldline": 0.007,
+      "archive": 0.0024
+    },
+    "us": {
+      "name": "US",
+      "type": "multi-region",
+      "standard": 0.026,
+      "nearline": 0.015,
+      "coldline": 0.007,
+      "archive": 0.0024
+    },
+    "africa-south1": {
+      "name": "Johannesburg",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "asia-east1": {
+      "name": "Taiwan",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.005,
+      "archive": 0.0015
+    },
+    "asia-east2": {
+      "name": "Hong Kong",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.007,
+      "archive": 0.0025
+    },
+    "asia-northeast1": {
+      "name": "Tokyo",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "asia-northeast2": {
+      "name": "Osaka",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "asia-northeast3": {
+      "name": "Seoul",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "asia-south1": {
+      "name": "Mumbai",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "asia-south2": {
+      "name": "Delhi",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "asia-southeast1": {
+      "name": "Singapore",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.005,
+      "archive": 0.0015
+    },
+    "asia-southeast2": {
+      "name": "Jakarta",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "asia-southeast3": {
+      "name": "Bangkok",
+      "type": "region",
+      "standard": 0.021,
+      "nearline": 0.013,
+      "coldline": 0.0055,
+      "archive": 0.0025
+    },
+    "asia-southeast4": {
+      "name": "Kuala Lumpur",
+      "type": "region",
+      "standard": 0.021,
+      "nearline": 0.013,
+      "coldline": 0.005,
+      "archive": 0.0015
+    },
+    "australia-southeast1": {
+      "name": "Sydney",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "australia-southeast2": {
+      "name": "Melbourne",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "europe-central2": {
+      "name": "Warsaw",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "europe-north1": {
+      "name": "Finland",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "europe-north2": {
+      "name": "Stockholm",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "europe-southwest1": {
+      "name": "Madrid",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.0115,
+      "coldline": 0.0052,
+      "archive": 0.0021
+    },
+    "europe-west1": {
+      "name": "Belgium",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "europe-west10": {
+      "name": "Berlin",
+      "type": "region",
+      "standard": 0.025,
+      "nearline": 0.014,
+      "coldline": 0.007,
+      "archive": 0.002499996
+    },
+    "europe-west12": {
+      "name": "Turin",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "europe-west2": {
+      "name": "London",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.007,
+      "archive": 0.0025
+    },
+    "europe-west3": {
+      "name": "Frankfurt",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "europe-west4": {
+      "name": "Netherlands",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "europe-west5": {
+      "name": "europe-west5",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "europe-west6": {
+      "name": "Zurich",
+      "type": "region",
+      "standard": 0.025,
+      "nearline": 0.014,
+      "coldline": 0.007,
+      "archive": 0.0025
+    },
+    "europe-west8": {
+      "name": "Milan",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "europe-west9": {
+      "name": "Paris",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "me-central1": {
+      "name": "Doha",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "me-central2": {
+      "name": "Dammam",
+      "type": "region",
+      "standard": 0.03,
+      "nearline": 0.018,
+      "coldline": 0.006,
+      "archive": 0.0027
+    },
+    "me-west1": {
+      "name": "Tel Aviv",
+      "type": "region",
+      "standard": 0.021,
+      "nearline": 0.0125,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "northamerica-northeast1": {
+      "name": "Montreal",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.007,
+      "archive": 0.0025
+    },
+    "northamerica-northeast2": {
+      "name": "Toronto",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.007,
+      "archive": 0.0025
+    },
+    "northamerica-south1": {
+      "name": "Mexico",
+      "type": "region",
+      "standard": 0.026,
+      "nearline": 0.018,
+      "coldline": 0.006,
+      "archive": 0.0027
+    },
+    "southamerica-east1": {
+      "name": "Sao Paulo",
+      "type": "region",
+      "standard": 0.035,
+      "nearline": 0.02,
+      "coldline": 0.007,
+      "archive": 0.003
+    },
+    "southamerica-west1": {
+      "name": "Santiago",
+      "type": "region",
+      "standard": 0.03,
+      "nearline": 0.018,
+      "coldline": 0.006,
+      "archive": 0.0027
+    },
+    "us-central1": {
+      "name": "Iowa",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "us-east1": {
+      "name": "South Carolina",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "us-east4": {
+      "name": "Northern Virginia",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "us-east5": {
+      "name": "Columbus",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "us-east7": {
+      "name": "Day0 (Alabama)",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "us-south1": {
+      "name": "Dallas",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "us-west1": {
+      "name": "Oregon",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    },
+    "us-west2": {
+      "name": "Los Angeles",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.007,
+      "archive": 0.0025
+    },
+    "us-west3": {
+      "name": "Salt Lake City",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.016,
+      "coldline": 0.007,
+      "archive": 0.0025
+    },
+    "us-west4": {
+      "name": "Las Vegas",
+      "type": "region",
+      "standard": 0.023,
+      "nearline": 0.013,
+      "coldline": 0.006,
+      "archive": 0.0025
+    },
+    "us-west8": {
+      "name": "Phoenix",
+      "type": "region",
+      "standard": 0.02,
+      "nearline": 0.01,
+      "coldline": 0.004,
+      "archive": 0.0012
+    }
+  }
+}
